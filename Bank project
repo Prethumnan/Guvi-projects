@@ -1,0 +1,91 @@
+import pymongo
+from pymongo import MongoClient
+client = pymongo.MongoClient("mongodb+srv://prethumnan:Karuna99@cluster0.7a8wk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+db = client.test
+db=client.get_database("Bank")
+fol=db.customers
+
+a=int(input('''[1] Existing customer
+[2] New customer
+>>>'''))
+
+def new():
+    print("Do you want to open new account")
+    n=int(input('''[1] yes
+[2] no
+>>>'''))
+    if n==2:
+        print("Thank you!")
+    else:
+        print("kindly enter the follwing details")
+        name=str(input("Enter your name : "))
+        aadhaar=str(input("Enter your aadhaar no : "))
+        pan=str(input("Enter your pan no : "))
+        email=str(input("Enter your email id : "))
+        details={"name":name,
+                "aadhaar":aadhaar,
+                 "pan":pan,
+                "email":email,
+                 "Available balance":0}
+        fol.insert_one(details)
+        print("Do you want to deposit money")
+        m=int(input('''[1] Yes
+[2] No
+>>>'''))
+        if m==2:
+            print("Thank you!")
+        else:
+            amount=int(input("Enter the amount : "))
+            print("Deposited amount : ",amount)
+            print("Available balance : ",amount)
+            print("Thanks for banking with us.")
+            old={"aadhaar":aadhaar}
+            new={"$set":{"Available balance":amount}}
+            fol.update_one(old,new)
+            
+           
+            
+def existing():
+    aadhaar=str(input("Enter your aadhaar no : "))
+    x=fol.find({"aadhaar":aadhaar})
+    n=int(input('''[1] Deposit
+[2] Withdraw
+[3] Balance enquiry
+>>>'''))
+    if n==1:
+        amount=int(input("Enter the amount : "))
+        for i in x:
+            bal=i["Available balance"]
+        b=bal+amount
+        old={"aadhaar":aadhaar}
+        new={"$set":{"Available balance":b}}
+        fol.update_one(old,new)
+        print("Deposited amount : ",amount)
+        print("Available balance : ",b)
+    
+    if n==2:
+        amount=int(input("Enter the amount : "))
+        for i in x:
+            bal=i["Available balance"]
+        new_bal=bal-amount
+        if amount>bal:
+            print("Insufficiant amount")
+            
+        else:
+            print("Amount withdrawed : ",amount)
+            print("Balance : ",new_bal)
+            old={"aadhaar":aadhaar}
+            new={"$set":{"Available balance":new_bal}}
+            fol.update_one(old,new)
+    if n==3:
+        for i in x:
+            bal=i["Available balance"]
+        print("Available balance : ",bal)
+            
+        
+    
+
+if a==1:
+      existing()
+elif a==2:
+      new()
