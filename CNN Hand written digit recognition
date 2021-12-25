@@ -1,0 +1,81 @@
+#Importing required libraries
+
+import tensorflow
+from tensorflow.keras.layers import Dense,Flatten,Conv2D,MaxPooling2D,Activation
+import matplotlib.pyplot as plt
+%matplotlib inline
+from tensorflow.keras.models import Sequential
+import numpy as np
+import cv2
+
+#Loading data
+
+(x_train,y_train),(x_test,y_test)=tensorflow.keras.datasets.mnist.load_data()
+
+#scaling data
+
+x_train=x_train/255
+x_test=x_test/255
+
+#Reshaping the dimension
+
+xtrain=x_train.reshape(60000,28,28,1)
+xtest=x_test.reshape(10000,28,28,1)
+
+#First convolutional layer
+
+model=Sequential()
+model.add(Conv2D(64,(3,3),input_shape=(xtrain[0].shape)))
+model.add(Activation("relu"))
+model.add(MaxPooling2D(pool_size=(2,2)))
+
+#second convolutional layer
+
+model.add(Conv2D(64,(3,3)))
+model.add(Activation("relu"))
+model.add(MaxPooling2D(pool_size=(2,2)))
+
+#Third convolutional layer
+          
+model.add(Conv2D(64,(3,3)))
+model.add(Activation("relu"))
+model.add(MaxPooling2D(pool_size=(2,2)))
+          
+model.add(Flatten())
+          
+#First dense layer
+          
+model.add(Dense(64))
+model.add(Activation("relu"))
+
+#Second dense layer
+          
+model.add(Dense(32))
+model.add(Activation("relu"))
+          
+#Output layer
+
+model.add(Dense(10))
+model.add(Activation("softmax"))
+
+#Compling the model
+
+model.compile(loss="sparse_categorical_crossentropy",optimizer="adam",metrics=["accuracy"])
+
+#Training the model
+
+model.fit(xtrain,y_train,epochs=15)
+
+model.evaluate(xtest,y_test)
+
+#predicting the hand written digits using our trained model
+
+def smart(im):
+  image=cv2.imread(im)
+  img=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+  new=cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
+  final=tensorflow.keras.utils.normalize(new)
+  result=final.reshape(-1,28,28,1)
+  m=model.predict(result)
+  return np.argmax(m)
+
