@@ -1,0 +1,105 @@
+#Creating new text file
+file=open("registration.txt","x")
+
+#creating a fuction for signup
+def signup():
+  for i in range(3):
+    email=str(input("Enter your email id : "))
+    e=list(email)
+    if e.index("@")+1==e.index("."):
+      print("Please enter a valid email id")
+    elif "@" in email:
+      break
+    else:
+      print("Please enter a valid email id")
+  print('''Your password should contain the following:
+  [1] 1 upper case
+  [2] 1 lower case
+  [3] 1 special character
+  [4] 1 Digit
+  The length of password should be within 5<password>16
+  ''')
+  password=str(input("Enter your password"))
+
+  #check whether the given password satisfies the above condition or not
+  new=list(password)
+  special='[@_!#$%^&*()<>?/\|}{~:]'
+  spe=list(special)
+  u=0
+  l=0
+  s=0
+  d=0
+  le=0
+  for i in new:
+    if i.isdigit():
+      d+=1
+    if i.islower():
+      l+=1
+    if i.isupper():
+      u+=1
+    if i in spe:
+      s+=1
+  if len(new)>5 and len(new)<16:
+    le+=1
+  if ((d>0 and l>0) and (u>0 and s>0) and le>0):
+    file=open("registration.txt","w")
+    file.write(email)
+    file.write(" ")
+    file.write(password)
+    print("you have succesfully Registered")
+  else:
+    print("please enter a password which satisfies the above conditions")
+
+#creating a function for login
+def Login():
+  for i in range(3):
+    email=str(input("Enter your email id : "))
+    e=list(email)
+    if e.index("@")+1==e.index("."):
+      print("Please enter a valid email id")
+    elif "@" in email:
+      break
+    else:
+      print("Please enter a valid email id")
+  file=open("registration.txt","r")
+  for i in file:
+    checking=i.split()
+
+  #checking whether the email exists or not
+  if email not in checking:
+    print("you do not have an account.please sign up")
+
+  #verifying password
+  for i in range(3):
+    password=str(input("Enter your password : "))
+    ind=checking.index(email)
+    p=ind+1
+    v=checking[p]
+    if password!=v:
+      print("Incorrect password")
+      print('''[1] Enter your password again
+[2] Forget password''')
+      c=int(input(">>>"))
+
+      #password recovering by using email id
+      if c==2:
+        email=str(input("Enter your email id : "))
+        file=open("registration.txt","r")
+        for i in file:
+          vali=i.split()
+        ind=vali.index(email)
+        pa=ind+1
+        print("your password : ",vali[pa])
+        break
+    else:
+      print("user creditials exits")
+      break
+
+print('''[1] signup
+[2] Login
+''')
+a=int(input(">>>"))
+if a==1:
+  signup()
+if a==2:
+  Login()
