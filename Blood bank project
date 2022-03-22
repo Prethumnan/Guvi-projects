@@ -1,0 +1,118 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled3.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyM3WD3p2lYEf4HL3s5vCEuX",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Prethumnan/guvi-project/blob/main/Blood%20bank%20project\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 41,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lfzfnzUTrbn3",
+        "outputId": "508d7f83-91b1-4e9b-a7ab-2a3a5db4547d"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "What blood group do you want\n",
+            "    1]A+\n",
+            "    2]B+\n",
+            "    >>>3\n",
+            "sorry!. This blood group is not available in our blood bank\n",
+            "Do you need blood again\n",
+            "  1]Yes\n",
+            "  2]NO\n",
+            "1\n",
+            "What blood group do you want\n",
+            "  1]A+\n",
+            "  2]B+\n",
+            "  >>>1\n",
+            "Enter the litres of blood you want : 1\n",
+            "The blood group you choosed is A+\n",
+            "The remaining A+ is 24\n",
+            "Do you need blood again\n",
+            "1]Yes\n",
+            "2]NO\n",
+            "2\n",
+            "Thank you\n"
+          ]
+        }
+      ],
+      "source": [
+        "b={\"A+\":25,\"B+\":25}\n",
+        "class Blood_bank:\n",
+        "  def blood():\n",
+        "    a=int(input('''What blood group do you want\n",
+        "    1]A+\n",
+        "    2]B+\n",
+        "    >>>'''))\n",
+        "    if a==1 or a==2:\n",
+        "      n=int(input(\"Enter the litres of blood you want : \"))\n",
+        "      if n<b[\"A+\"]:\n",
+        "        if a==1:\n",
+        "          print(\"The blood group you choosed is A+\")\n",
+        "          b[\"A+\"]=b[\"A+\"]-n\n",
+        "          print(\"The remaining A+ is\",b[\"A+\"])\n",
+        "      else:\n",
+        "        print(\"sorry we do not have enough litres which you want\")\n",
+        "        print(\"kindly enter the litres of blood value below \",b[\"A+\"])\n",
+        "      if n<b[\"B+\"]:\n",
+        "        if a==2:\n",
+        "          print(\"The blood group you choosed is B+\")\n",
+        "          b[\"B+\"]=b[\"B+\"]-n\n",
+        "          print(\"The remaining A+ is\",b[\"B+\"])\n",
+        "        \n",
+        "      else:\n",
+        "        print(\"sorry we do not have enough litres which you want\")\n",
+        "        print(\"kindly enter the litres of blood value below \",b[\"B+\"])\n",
+        "    else:\n",
+        "        print(\"sorry!. This blood group is not available in our blood bank\")\n",
+        "    \n",
+        "    \n",
+        "    print('''Do you need blood again\n",
+        "  1]Yes\n",
+        "  2]NO''')\n",
+        "    v=int(input())\n",
+        "    if v==1:\n",
+        "      blood()\n",
+        "    else:\n",
+        "      print(\"Thank you\")\n",
+        "      \n",
+        "\n",
+        "  blood()\n",
+        "\n",
+        "Bank=Blood_bank()\n",
+        "\n",
+        "\n"
+      ]
+    }
+  ]
+}
