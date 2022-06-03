@@ -1,0 +1,83 @@
+1.Write an SQL query to fetch “FIRST_NAME” from the Worker table using the alias name <WORKER_NAME>
+Ans: Select FIRST_NAME AS WORKER_NAME from Worker;
+
+2.Write an SQL query to fetch unique values of DEPARTMENT from the Worker table.
+Ans: Select distinct DEPARTMENT from Worker;
+
+3.Write an SQL query to show the last 5 records from a table.
+Ans: select * from worker order by id desc limit 5;
+
+4.Write an SQL query to print the first three characters of FIRST_NAME from Worker
+Ans: select substr(FIRST_NAME,1,3) from worker;
+
+5.Write an SQL query to find the position of the alphabet (‘a’) in the first name
+Ans: Select INSTR(FIRST_NAME,'a') from worker;
+
+6.Write an SQL query to print the name of employees who have the highest salary in each department.
+Ans: SELECT t.DEPARTMENT,t.FIRST_NAME,t.Salary from(SELECT max(Salary) as TotalSalary,DEPARTMENT from Worker group by DEPARTMENT) as TempNew 
+Inner Join Worker t on TempNew.DEPARTMENT=t.DEPARTMENT 
+ and TempNew.TotalSalary=t.Salary;
+
+7.Write an SQL query to print the FIRST_NAME from the Worker table after removing white spaces from the right side.
+Ans: Select RTRIM(FIRST_NAME) from Worker;
+
+8.Write an SQL query that fetches the unique values of DEPARTMENT from the Worker table and prints its length.
+Ans: Select distinct length(DEPARTMENT) from Worker;
+
+9.Write an SQL query to fetch nth max salaries from a table.
+Ans: SELECT Salary FROM Worker ORDER BY Salary DESC Limit n-1,1;
+10.Write an SQL query to print the FIRST_NAME from the Worker table after replacing ‘a’ with ‘A’.
+Ans: Select REPLACE(FIRST_NAME,'a','A') from Worker;
+
+11.Write an SQL query to print all Worker details from the Worker table order FIRST_NAME Ascending and DEPARTMENT Descending.
+Ans: select * from worker order by First_name asc,department desc;
+
+12.Write an SQL query to fetch the names of workers who earn the highest salary.
+Ans: SELECT FIRST_NAME, SALARY from Worker WHERE SALARY=(SELECT max(SALARY) from Worker);
+
+13.Write an SQL query to print details of workers excluding first names, “Ramesh” and “Santhosh” from the Worker table.
+Ans: Select * from Worker where FIRST_NAME not in ('Ramesh','Santhosh');
+
+14.Write an SQL query to print details of the Workers whose FIRST_NAME ends with ‘h’ and contains six alphabets.
+Ans: Select * from Worker where FIRST_NAME like '_____h';
+
+15.Write a query to validate Email of Employee (email should have first name last name and guvi.com example (first name=Kamal last name= raja and the mail id should be kamalraja@guvi.com).
+Ans: SELECT * FROM worker WHERE email LIKE '%@gmail.com';
+
+16.Write an SQL query to print details of the Workers who have joined in March ’2021.
+Ans: Select * from Worker where year(JOINING_DATE) = 2021 and month(JOINING_DATE) = 3;
+
+17.Write an SQL query to fetch duplicates that have matching data in some fields of a table.
+Ans: SELECT WORKER_TITLE, AFFECTED_FROM, COUNT(*) FROM Title GROUP BY WORKER_TITLE, AFFECTED_FROM HAVING COUNT(*) > 1;
+
+20.Write an SQL query to show only odd rows from a table.
+Ans: SELECT * FROM Worker WHERE MOD (WORKER_ID, 2) <> 0;
+21.Write an SQL query to clone a new table from another table.
+Ans: CREATE TABLE WorkerClone LIKE Worker;
+
+22.Write an SQL query to fetch intersecting records of two tables.
+Ans: (SELECT * FROM Worker) INTERSECT (SELECT * FROM WorkerClone);
+
+23.Write an SQL query to show records from one table that another table does not have.
+Ans: SELECT * FROM Worker MINUS SELECT * FROM Title;
+
+24.Write an SQL query to show the top n (say 15) records of a table.
+Ans: select * from worker limit 15;
+
+25.Write an SQL query to determine the nth (say n=10) highest salary from a table.
+Ans: select salary from worker order by salary desc limit n-1,1;
+
+26.Write an SQL query to determine the 8th highest salary without using TOP or LIMIT methods.
+Ans: SELECT Salary FROM Worker W1 WHERE 4 = ( SELECT COUNT( DISTINCT ( W2.Salary ) ) FROM Worker W2 WHERE W2.Salary >= W1.Salary);
+
+27.Write an SQL query to fetch the list of employees with the same salary.
+Ans: Select distinct W.WORKER_ID, W.FIRST_NAME, W.Salary from Worker W, Worker W1 where W.Salary = W1.Salary and W.WORKER_ID != W1.WORKER_I
+
+
+
+
+
+
+
+
+
