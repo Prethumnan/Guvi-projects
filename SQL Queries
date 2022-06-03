@@ -26,6 +26,7 @@ Ans: Select distinct length(DEPARTMENT) from Worker;
 
 9.Write an SQL query to fetch nth max salaries from a table.
 Ans: SELECT Salary FROM Worker ORDER BY Salary DESC Limit n-1,1;
+
 10.Write an SQL query to print the FIRST_NAME from the Worker table after replacing ‘a’ with ‘A’.
 Ans: Select REPLACE(FIRST_NAME,'a','A') from Worker;
 
@@ -52,6 +53,7 @@ Ans: SELECT WORKER_TITLE, AFFECTED_FROM, COUNT(*) FROM Title GROUP BY WORKER_TIT
 
 20.Write an SQL query to show only odd rows from a table.
 Ans: SELECT * FROM Worker WHERE MOD (WORKER_ID, 2) <> 0;
+
 21.Write an SQL query to clone a new table from another table.
 Ans: CREATE TABLE WorkerClone LIKE Worker;
 
